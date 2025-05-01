@@ -181,4 +181,4 @@ CORS_ALLOW_ALL_ORIGINS = True # For development only. Use CORS_ALLOWED_ORIGINS i
 # ]
 
 
-from unfold_tools.main import UNFOLD
+from unfold_tools.config import UNFOLD

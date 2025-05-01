@@ -3,6 +3,11 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from unfold_tools.sidebar import SIDEBAR
 
+def set_direction(request):
+    """Set RTL direction based on language"""
+    return 'ltr'
+
+
 UNFOLD = {
     # Site title and header
     "SITE_TITLE": "SootSport Admin",
@@ -20,7 +25,8 @@ UNFOLD = {
     "ENVIRONMENT": "unfold_tools.utils.environment_callback",
     # "DASHBOARD_CALLBACK": "unfold_tools.utils.dashboard_callback",
 
-
+    # RTL direction setting
+    "DIRECTION": set_direction,
 
     # Login settings
     "LOGIN": {
@@ -30,10 +36,10 @@ UNFOLD = {
 
     # Custom styles and scripts (optional)
     "STYLES": [
-        lambda request: static("unfold.css"),  # Add your custom CSS file
+        lambda request: static("custom.css"),  # Add your custom CSS file
     ],
     "SCRIPTS": [
-        lambda request: static("js/custom.js"),  # Add your custom JavaScript file
+        lambda request: static("custom.js"),  # Add your custom JavaScript file
     ],
     "BORDER_RADIUS": "20px",
     "COLORS": {
@@ -76,6 +82,6 @@ UNFOLD = {
     "SIDEBAR": {
         "show_search": True,  # Enable search in sidebar
         "show_all_applications": False,
-            "navigation": SIDEBAR
+        "navigation": SIDEBAR
     },
 }
