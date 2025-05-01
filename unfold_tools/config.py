@@ -25,7 +25,7 @@ UNFOLD = {
 
     "ENVIRONMENT": "unfold_tools.utils.environment_callback",
 
-    # تنظیم جهت RTL
+    # تنظیم جهت RTL - تضمین می‌کنیم همیشه RTL باشد
     "DIRECTION": set_direction,  # همیشه RTL برای فارسی
 
     # تنظیمات ورود
@@ -42,8 +42,8 @@ UNFOLD = {
         lambda request: static("custom.js"),  # فایل JavaScript سفارشی
     ],
 
-    # تنظیمات ظاهری
-    "BORDER_RADIUS": "20px",
+    # تنظیمات ظاهری با رنگ‌های مناسب‌تر برای رابط فارسی
+    "BORDER_RADIUS": "16px",
     "COLORS": {
         "base": {
             "50": "249 250 251",
@@ -59,6 +59,7 @@ UNFOLD = {
             "950": "3 7 18",
         },
         "primary": {
+            # رنگ بنفش برای تم اصلی
             "50": "250 245 255",
             "100": "243 232 255",
             "200": "233 213 255",
@@ -81,20 +82,27 @@ UNFOLD = {
         },
     },
 
-    # تنظیمات فونت
+    # تنظیمات فونت - وزیرمتن به عنوان فونت استاندارد فارسی
     "FONTSHEET": "https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css",
     "FONTS": {
-        "default": "Vazirmatn, sans-serif",
+        "default": "Vazirmatn, system-ui, sans-serif",
         "monospace": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
     },
 
-    # نوار کناری
+    # نوار کناری با تنظیمات بهتر برای RTL
     "SIDEBAR": {
         "show_search": True,  # فعال کردن جستجو در نوار کناری
-        "show_all_applications": False,
-        "navigation": SIDEBAR
+        "show_all_applications": True,  # نمایش همه برنامه‌ها برای مدیریت بهتر
+        "navigation": SIDEBAR,
+        "width": {
+            "default": 280,  # عرض پیش‌فرض
+            "collapsed": 64,  # عرض در حالت جمع شده
+        }
     },
 
     # فعال کردن RTL
     "RTL_SUPPORT": True,
+
+    # فعال کردن کنترل‌های فرم unfold
+    "USE_UNFOLD_FORM_CONTROLS": True,
 }
