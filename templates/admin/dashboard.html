@@ -1,0 +1,153 @@
+{% extends 'unfold/layouts/base_simple.html' %}
+
+{% load i18n unfold %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block title %}
+    {% trans 'داشبورد' %} | {{ site_title|default:_('Django site admin') }}
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">
+            {{ site_header }}
+        </a>
+    </h1>
+{% endblock %}
+
+{% block content %}
+    {% component "unfold/components/container.html" %}
+        <div class="my-4">
+            {% component "unfold/components/card.html" with class="mb-8" %}
+                {% component "unfold/components/title.html" with size="xl" %}
+                    {% trans "به پنل مدیریت خوش آمدید" %}
+                {% endcomponent %}
+                {% component "unfold/components/text.html" %}
+                    {% trans "از اینجا می‌توانید سیستم خود را مدیریت و نظارت کنید." %}
+                {% endcomponent %}
+            {% endcomponent %}
+
+            {% component "unfold/components/flex.html" with class="flex-col lg:flex-row gap-6" %}
+                <!-- کارت آمار کاربران -->
+                {% component "unfold/components/card.html" with class="lg:w-1/4" %}
+                    {% component "unfold/components/text.html" with class="text-base-500 mb-2" %}
+                        {% trans "کاربران" %}
+                    {% endcomponent %}
+                    {% component "unfold/components/title.html" %}
+                        {{ total_users|default:"0" }}
+                    {% endcomponent %}
+                    {% component "unfold/components/text.html" with class="text-sm mt-2" %}
+                        {{ active_users|default:"0" }} {% trans "کاربر فعال" %} ({{ user_percentage|default:"0" }}%)
+                    {% endcomponent %}
+                    {% component "unfold/components/progress.html" with value=user_percentage|default:0 %}
+                    {% endcomponent %}
+                    <div class="mt-4">
+                        <a href="{% url 'admin:index' %}" class="text-primary-600 hover:text-primary-700">
+                            {% trans "مشاهده همه کاربران" %} &rarr;
+                        </a>
+                    </div>
+                {% endcomponent %}
+
+                <!-- کارت آمار محتوا -->
+                {% component "unfold/components/card.html" with class="lg:w-1/4" %}
+                    {% component "unfold/components/text.html" with class="text-base-500 mb-2" %}
+                        {% trans "محتوا" %}
+                    {% endcomponent %}
+                    {% component "unfold/components/title.html" %}
+                        {{ total_content|default:"0" }}
+                    {% endcomponent %}
+                    {% component "unfold/components/text.html" with class="text-sm mt-2" %}
+                        {{ published_content|default:"0" }} {% trans "منتشر شده" %} ({{ content_percentage|default:"0" }}%)
+                    {% endcomponent %}
+                    {% component "unfold/components/progress.html" with value=content_percentage|default:0 %}
+                    {% endcomponent %}
+                    <div class="mt-4">
+                        <a href="{% url 'admin:index' %}" class="text-primary-600 hover:text-primary-700">
+                            {% trans "مدیریت محتوا" %} &rarr;
+                        </a>
+                    </div>
+                {% endcomponent %}
+
+                <!-- کارت فعالیت اخیر -->
+                {% component "unfold/components/card.html" with class="lg:w-1/4" %}
+                    {% component "unfold/components/text.html" with class="text-base-500 mb-2" %}
+                        {% trans "فعالیت اخیر" %}
+                    {% endcomponent %}
+                    {% if recent_actions %}
+                        <ul class="space-y-2 mt-2">
+                            {% for action in recent_actions %}
+                            <li class="pb-2 border-b border-base-200 last:border-b-0">
+                                <div class="font-medium">{{ action.message }}</div>
+                                <div class="text-sm text-base-500">{{ action.timestamp|date:"j F Y، G:i" }}</div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {% component "unfold/components/text.html" with class="text-base-500" %}
+                            {% trans "هیچ فعالیت اخیری وجود ندارد." %}
+                        {% endcomponent %}
+                    {% endif %}
+                    <div class="mt-4">
+                        <a href="{% url 'admin:index' %}" class="text-primary-600 hover:text-primary-700">
+                            {% trans "مشاهده همه فعالیت‌ها" %} &rarr;
+                        </a>
+                    </div>
+                {% endcomponent %}
+
+                <!-- کارت وضعیت سیستم -->
+                {% component "unfold/components/card.html" with class="lg:w-1/4" %}
+                    {% component "unfold/components/text.html" with class="text-base-500 mb-2" %}
+                        {% trans "وضعیت سیستم" %}
+                    {% endcomponent %}
+                    <div class="grid grid-cols-2 gap-4 mt-2">
+                        <div>
+                            <div class="text-sm font-medium mb-1">{% trans "جنگو" %}</div>
+                            <div class="text-base text-primary-600">{{ django_version }}</div>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium mb-1">{% trans "پایتون" %}</div>
+                            <div class="text-base text-primary-600">{{ python_version }}</div>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium mb-1">{% trans "دیتابیس" %}</div>
+                            <div class="text-base text-primary-600">{{ database_engine }}</div>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium mb-1">{% trans "وضعیت" %}</div>
+                            <div class="text-base text-green-600">{% trans "فعال" %}</div>
+                        </div>
+                    </div>
+                {% endcomponent %}
+            {% endcomponent %}
+
+            <!-- بخش لینک‌های سریع -->
+            {% component "unfold/components/card.html" with class="mt-8" %}
+                {% component "unfold/components/title.html" with size="lg" %}
+                    {% trans "لینک‌های سریع" %}
+                {% endcomponent %}
+                {% component "unfold/components/flex.html" with class="flex-wrap gap-4 mt-4" %}
+                    <a href="{% url 'admin:index' %}" class="p-4 bg-base-50 rounded-lg border border-base-200 hover:shadow-md transition-all text-center w-full sm:w-1/3 md:w-1/4 lg:w-1/6">
+                        <span class="material-symbols-outlined text-3xl text-primary-600 mb-2">people</span>
+                        <div class="text-sm font-medium">{% trans "کاربران" %}</div>
+                    </a>
+                    
+                    <a href="{% url 'admin:index' %}" class="p-4 bg-base-50 rounded-lg border border-base-200 hover:shadow-md transition-all text-center w-full sm:w-1/3 md:w-1/4 lg:w-1/6">
+                        <span class="material-symbols-outlined text-3xl text-primary-600 mb-2">settings</span>
+                        <div class="text-sm font-medium">{% trans "تنظیمات" %}</div>
+                    </a>
+                    
+                    <a href="{% url 'admin:index' %}" class="p-4 bg-base-50 rounded-lg border border-base-200 hover:shadow-md transition-all text-center w-full sm:w-1/3 md:w-1/4 lg:w-1/6">
+                        <span class="material-symbols-outlined text-3xl text-primary-600 mb-2">content_copy</span>
+                        <div class="text-sm font-medium">{% trans "محتوا" %}</div>
+                    </a>
+                    
+                    <a href="{% url 'admin:index' %}" class="p-4 bg-base-50 rounded-lg border border-base-200 hover:shadow-md transition-all text-center w-full sm:w-1/3 md:w-1/4 lg:w-1/6">
+                        <span class="material-symbols-outlined text-3xl text-primary-600 mb-2">analytics</span>
+                        <div class="text-sm font-medium">{% trans "آمار" %}</div>
+                    </a>
+                {% endcomponent %}
+            {% endcomponent %}
+        </div>
+    {% endcomponent %}
+{% endblock %} 

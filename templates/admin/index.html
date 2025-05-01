@@ -1,0 +1,192 @@
+{% extends 'unfold/layouts/base.html' %}
+
+{% load i18n unfold %}
+
+{% block title %}{% trans "خانه" %} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block content %}
+    {% component "unfold/components/container.html" %}
+        <div class="my-6">
+            <!-- کارت خوش‌آمدگویی با استایل‌های بهتر -->
+            {% component "unfold/components/card.html" with class="mb-8 bg-gradient-to-r from-primary-50 to-base-50 border-l-4 border-l-primary-500" %}
+                {% component "unfold/components/title.html" with size="xl" class="text-primary-700" %}
+                    {% trans "به پنل مدیریت خوش آمدید" %}
+                {% endcomponent %}
+                {% component "unfold/components/text.html" with class="text-base-600" %}
+                    {% trans "از اینجا می‌توانید سیستم خود را مدیریت و نظارت کنید." %}
+                {% endcomponent %}
+            {% endcomponent %}
+
+            {% if app_list %}
+                <div class="mt-10">
+                    <!-- عنوان بخش اپلیکیشن‌ها -->
+                    <div class="flex items-center mb-4">
+                        <span class="material-symbols-outlined text-primary-600 mr-2">apps</span>
+                        <h2 class="text-xl font-bold text-base-700">{% trans "اپلیکیشن‌ها" %}</h2>
+                    </div>
+                    
+                    {% component "unfold/components/flex.html" with class="flex-col md:flex-row md:flex-wrap gap-6" %}
+                        {% for app in app_list %}
+                            {% component "unfold/components/card.html" with class="md:w-auto flex-grow min-w-[300px] hover:shadow-md transition-all duration-300 border-t-2 border-t-primary-500" %}
+                                {% component "unfold/components/text.html" with class="text-primary-600 font-semibold mb-3 text-lg" %}
+                                    {{ app.name }}
+                                {% endcomponent %}
+                                <ul class="mt-2 grid gap-2">
+                                    {% for model in app.models %}
+                                        <li class="hover:bg-base-50 rounded p-2 transition-colors">
+                                            {% if model.admin_url %}
+                                                <a href="{{ model.admin_url }}" class="{% if model.perms.change %}text-primary-600 hover:text-primary-700 flex items-center{% else %}text-base-400 hover:text-base-500 flex items-center{% endif %}">
+                                                    <span class="material-symbols-outlined text-base mr-2">{% if model.perms.change %}chevron_right{% else %}block{% endif %}</span>
+                                                    {{ model.name }}
+                                                </a>
+                                            {% else %}
+                                                <span class="text-base-400 flex items-center">
+                                                    <span class="material-symbols-outlined text-base mr-2">block</span>
+                                                    {{ model.name }}
+                                                </span>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endcomponent %}
+                        {% endfor %}
+                    {% endcomponent %}
+                </div>
+            {% endif %}
+
+            {% if user.is_superuser %}
+                <div class="mt-10">
+                    <!-- عنوان بخش فعالیت‌های اخیر -->
+                    <div class="flex items-center mb-4">
+                        <span class="material-symbols-outlined text-primary-600 mr-2">history</span>
+                        <h2 class="text-xl font-bold text-base-700">{% trans "فعالیت‌های اخیر" %}</h2>
+                    </div>
+                    
+                    {% component "unfold/components/card.html" with class="border-t-2 border-t-primary-500" %}
+                        {% if actions %}
+                            <ul class="mt-2 space-y-3">
+                                {% for action in actions %}
+                                    <li class="flex flex-col pb-3 border-b border-base-200 last:border-b-0 last:pb-0 hover:bg-base-50 p-2 rounded transition-colors">
+                                        <div class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-primary-600">person</span>
+                                            <div class="font-medium text-primary-700">{{ action.user.username }}</div>
+                                            <div class="text-base-400 text-sm">{{ action.timestamp|date:"j F Y، G:i" }}</div>
+                                        </div>
+                                        <div class="mt-1 mr-6 text-base-600">{{ action.user.username }} {{ action.content_type }} "{{ action.object_repr|truncatewords:5 }}"</div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <div class="flex items-center justify-center p-6 text-base-500">
+                                <span class="material-symbols-outlined mr-2">info</span>
+                                {% trans "هیچ فعالیت اخیری وجود ندارد." %}
+                            </div>
+                        {% endif %}
+                    {% endcomponent %}
+                </div>
+            {% endif %}
+
+            <!-- آمار کلی سیستم -->
+            <div class="mt-10">
+                <!-- عنوان بخش آمار -->
+                <div class="flex items-center mb-4">
+                    <span class="material-symbols-outlined text-primary-600 mr-2">dashboard</span>
+                    <h2 class="text-xl font-bold text-base-700">{% trans "آمار سیستم" %}</h2>
+                </div>
+                
+                {% component "unfold/components/flex.html" with class="flex-col md:flex-row gap-6" %}
+                    {% component "unfold/components/card.html" with class="md:w-1/4 hover:shadow-md transition-all duration-300 border-t-2 border-t-blue-500" %}
+                        <div class="flex items-center mb-2">
+                            <span class="material-symbols-outlined text-blue-600 mr-2">people</span>
+                            {% component "unfold/components/text.html" with class="text-blue-600 font-semibold" %}
+                                {% trans "کاربران" %}
+                            {% endcomponent %}
+                        </div>
+                        {% component "unfold/components/title.html" with class="text-blue-700" %}
+                            {{ total_users|default:"0" }}
+                        {% endcomponent %}
+                        {% component "unfold/components/progress.html" with value=user_percentage|default:0 color="blue" %}
+                        {% endcomponent %}
+                        {% component "unfold/components/text.html" with class="text-sm mt-2 text-blue-600" %}
+                            {{ active_users|default:"0" }} {% trans "کاربر فعال" %} ({{ user_percentage|default:"0" }}%)
+                        {% endcomponent %}
+                    {% endcomponent %}
+
+                    {% component "unfold/components/card.html" with class="md:w-1/4 hover:shadow-md transition-all duration-300 border-t-2 border-t-emerald-500" %}
+                        <div class="flex items-center mb-2">
+                            <span class="material-symbols-outlined text-emerald-600 mr-2">article</span>
+                            {% component "unfold/components/text.html" with class="text-emerald-600 font-semibold" %}
+                                {% trans "محتوا" %}
+                            {% endcomponent %}
+                        </div>
+                        {% component "unfold/components/title.html" with class="text-emerald-700" %}
+                            {{ total_content|default:"0" }}
+                        {% endcomponent %}
+                        {% component "unfold/components/progress.html" with value=content_percentage|default:0 color="emerald" %}
+                        {% endcomponent %}
+                        {% component "unfold/components/text.html" with class="text-sm mt-2 text-emerald-600" %}
+                            {{ published_content|default:"0" }} {% trans "منتشر شده" %} ({{ content_percentage|default:"0" }}%)
+                        {% endcomponent %}
+                    {% endcomponent %}
+
+                    {% component "unfold/components/card.html" with class="md:w-1/4 hover:shadow-md transition-all duration-300 border-t-2 border-t-amber-500" %}
+                        <div class="flex items-center mb-2">
+                            <span class="material-symbols-outlined text-amber-600 mr-2">computer</span>
+                            {% component "unfold/components/text.html" with class="text-amber-600 font-semibold" %}
+                                {% trans "وضعیت سیستم" %}
+                            {% endcomponent %}
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mt-3">
+                            <div>
+                                <div class="text-sm font-medium mb-1 text-amber-700">{% trans "جنگو" %}</div>
+                                <div class="text-base text-amber-600 font-semibold">{{ django_version }}</div>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium mb-1 text-amber-700">{% trans "پایتون" %}</div>
+                                <div class="text-base text-amber-600 font-semibold">{{ python_version }}</div>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium mb-1 text-amber-700">{% trans "دیتابیس" %}</div>
+                                <div class="text-base text-amber-600 font-semibold">{{ database_engine }}</div>
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium mb-1 text-amber-700">{% trans "وضعیت" %}</div>
+                                <div class="text-base text-emerald-600 font-semibold">{% trans "فعال" %}</div>
+                            </div>
+                        </div>
+                    {% endcomponent %}
+
+                    {% component "unfold/components/card.html" with class="md:w-1/4 hover:shadow-md transition-all duration-300 border-t-2 border-t-purple-500" %}
+                        <div class="flex items-center mb-2">
+                            <span class="material-symbols-outlined text-purple-600 mr-2">rocket_launch</span>
+                            {% component "unfold/components/text.html" with class="text-purple-600 font-semibold" %}
+                                {% trans "دسترسی سریع" %}
+                            {% endcomponent %}
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mt-3">
+                            <a href="{% url 'admin:index' %}" class="p-3 bg-base-50 rounded-lg border border-base-200 hover:shadow-sm hover:bg-purple-50 transition-all text-center group">
+                                <span class="material-symbols-outlined text-xl text-purple-600 mb-1 group-hover:scale-110 transition-transform">people</span>
+                                <div class="text-xs font-medium text-purple-700">{% trans "کاربران" %}</div>
+                            </a>
+                            
+                            <a href="{% url 'admin:index' %}" class="p-3 bg-base-50 rounded-lg border border-base-200 hover:shadow-sm hover:bg-purple-50 transition-all text-center group">
+                                <span class="material-symbols-outlined text-xl text-purple-600 mb-1 group-hover:scale-110 transition-transform">settings</span>
+                                <div class="text-xs font-medium text-purple-700">{% trans "تنظیمات" %}</div>
+                            </a>
+                            
+                            <a href="{% url 'admin:index' %}" class="p-3 bg-base-50 rounded-lg border border-base-200 hover:shadow-sm hover:bg-purple-50 transition-all text-center group">
+                                <span class="material-symbols-outlined text-xl text-purple-600 mb-1 group-hover:scale-110 transition-transform">content_copy</span>
+                                <div class="text-xs font-medium text-purple-700">{% trans "محتوا" %}</div>
+                            </a>
+                            
+                            <a href="{% url 'admin:index' %}" class="p-3 bg-base-50 rounded-lg border border-base-200 hover:shadow-sm hover:bg-purple-50 transition-all text-center group">
+                                <span class="material-symbols-outlined text-xl text-purple-600 mb-1 group-hover:scale-110 transition-transform">analytics</span>
+                                <div class="text-xs font-medium text-purple-700">{% trans "آمار" %}</div>
+                            </a>
+                        </div>
+                    {% endcomponent %}
+                {% endcomponent %}
+            </div>
+        </div>
+    {% endcomponent %}
+{% endblock %} 

@@ -17,15 +17,31 @@ def create_sidebar_item(app, model, title, icon):
         "link": admin_page(app, model),
     }
 
+# Utility function to create custom URL sidebar items
+def create_custom_sidebar_item(title, icon, url):
+    return {
+        "title": _(title),
+        "icon": icon,
+        "link": reverse_lazy(url),
+    }
+
 
 # Icon mapping for consistency and ease of use
 ICON_MAP = {
+    'dashboard': 'dashboard',
     'group': 'groups',
     'user': 'person',
+    'province': 'public',
+    'city': 'location_city',
+    'address': 'pin_drop',
     'brand': 'brand_family',
-    'category': 'nest_gale_wifi',
-    'website': 'dns',
+    'category': 'category',
     'tag': 'tag',
+    'sport_facility': 'stadium',
+    'discount': 'local_offer',
+    'timeslot': 'schedule',
+    'reservation': 'bookmark_added',
+    'website': 'dns',
     'site': 'dns',
     'organization': 'domain',
     'accessory': 'media_output',
@@ -36,22 +52,39 @@ ICON_MAP = {
 }
 
 
+# Define the dashboard section with correct structure
+dashboard_section = {
+    "title": _("داشبورد"),
+    "icon": ICON_MAP['dashboard'],
+    "collapsible": False,
+    "items": [
+        {
+            "title": _("نمای کلی"),
+            "icon": ICON_MAP['dashboard'],
+            "link": reverse_lazy('admin_dashboard'),
+        }
+    ]
+}
+
 # Define the list of sidebar items dynamically
 user_list = [
-    create_sidebar_item('auth', 'group', 'گروه', ICON_MAP['group']),
+    create_sidebar_item('auth', 'group', 'گروه‌ها', ICON_MAP['group']),
     create_sidebar_item('user', 'user', 'کاربران', ICON_MAP['user']),
 ]
 
 address_list = [
-    create_sidebar_item('address', 'province', 'استان ها', ICON_MAP['group']),
-    create_sidebar_item('address', 'city', 'شهر ها', ICON_MAP['user']),
+    create_sidebar_item('address', 'province', 'استان‌ها', ICON_MAP['province']),
+    create_sidebar_item('address', 'city', 'شهرها', ICON_MAP['city']),
+    create_sidebar_item('address', 'address', 'آدرس‌ها', ICON_MAP['address']),
 ]
 
 provider_list = [
-    # create_sidebar_item('taxonomy', 'brand', 'brand', ICON_MAP['brand']),
-    # create_sidebar_item('taxonomy', 'category', 'category', ICON_MAP['category']),
-    # create_sidebar_item('taxonomy', 'tag', 'tag', ICON_MAP['tag']),
-    # create_sidebar_item('website', 'website', 'website', ICON_MAP['website']),
+    create_sidebar_item('provider', 'category', 'دسته‌بندی‌ها', ICON_MAP['category']),
+    create_sidebar_item('provider', 'tag', 'تگ‌ها', ICON_MAP['tag']),
+    create_sidebar_item('provider', 'sportfacility', 'سالن‌های ورزشی', ICON_MAP['sport_facility']),
+    create_sidebar_item('provider', 'discount', 'تخفیف‌ها', ICON_MAP['discount']),
+    create_sidebar_item('provider', 'timeslot', 'سانس‌ها', ICON_MAP['timeslot']),
+    create_sidebar_item('provider', 'reservation', 'رزروها', ICON_MAP['reservation']),
 ]
 
 # Utility function to create sidebar sections
@@ -66,9 +99,9 @@ def create_sidebar_section(title, icon, items):
 
 # Sidebar structure
 SIDEBAR = [
-    create_sidebar_section(_("کاربران"), "account_circle", user_list),
-    create_sidebar_section(_("استان‌ها و شهرها"), "domain", address_list),
-    create_sidebar_section(_("سالن ها"), "shopping_cart", provider_list),
+    create_sidebar_section(_("کاربران و دسترسی"), "manage_accounts", user_list),
+    create_sidebar_section(_("آدرس‌ها"), "location_on", address_list),
+    create_sidebar_section(_("مدیریت سالن‌ها"), "storefront", provider_list),
 #     create_sidebar_section(_("Taxonomy"), "category", taxonomy_list),
 #     create_sidebar_section(_("Video"), "videocam", video_list),
 ]

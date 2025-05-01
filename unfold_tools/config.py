@@ -16,8 +16,8 @@ UNFOLD = {
     "SITE_URL": "/",
 
     # آیکون و لوگو
-    "SITE_ICON": lambda request: static("cropped-icon-2-192x192.webp"),
-    "SITE_LOGO": lambda request: static("cropped-icon-2-192x192.webp"),
+    "SITE_ICON": lambda request: static("icon.png"),
+    "SITE_LOGO": lambda request: static("icon.png"),
 
     # گزینه‌های نمایش
     "SHOW_HISTORY": True,  # نمایش دکمه "تاریخچه"
@@ -30,13 +30,14 @@ UNFOLD = {
 
     # تنظیمات ورود
     "LOGIN": {
-        "image": lambda request: static("login-bg.jpg"),
+        "image": lambda request: static("icon.jpg"),
         "redirect_after": lambda request: reverse_lazy("admin:index"),  # هدایت به داشبورد پس از ورود
     },
 
     # استایل‌ها و اسکریپت‌های سفارشی
     "STYLES": [
         lambda request: static("custom.css"),  # فایل CSS سفارشی
+
     ],
     "SCRIPTS": [
         lambda request: static("custom.js"),  # فایل JavaScript سفارشی
@@ -92,7 +93,7 @@ UNFOLD = {
     # نوار کناری با تنظیمات بهتر برای RTL
     "SIDEBAR": {
         "show_search": True,  # فعال کردن جستجو در نوار کناری
-        "show_all_applications": True,  # نمایش همه برنامه‌ها برای مدیریت بهتر
+        "show_all_applications": False,  # نمایش همه برنامه‌ها برای مدیریت بهتر
         "navigation": SIDEBAR,
         "width": {
             "default": 280,  # عرض پیش‌فرض

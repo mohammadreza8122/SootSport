@@ -67,8 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.middleware.RTLMiddleware',  # middleware جدید را اضافه کنید
-
+    # 'core.middleware.RTLMiddleware',  # middleware جدید را کامنت یا حذف کنید
 ]
 
 ROOT_URLCONF = 'core.urls'
