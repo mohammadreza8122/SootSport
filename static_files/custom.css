@@ -1,0 +1,155 @@
+/* RTL styles for Django Unfold Admin */
+
+/* Global RTL direction */
+[dir="rtl"] body,
+[dir="rtl"] .unfold-sidebar,
+[dir="rtl"] .unfold-main,
+[dir="rtl"] .unfold-header,
+[dir="rtl"] .unfold-content,
+[dir="rtl"] .unfold-content form {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Fix sidebar navigation */
+[dir="rtl"] .unfold-sidebar-navigation {
+    padding-right: 0;
+}
+
+[dir="rtl"] .unfold-sidebar-item-icon {
+    margin-left: 0.75rem;
+    margin-right: 0;
+}
+
+[dir="rtl"] .unfold-sidebar-group {
+    padding-right: 0;
+}
+
+[dir="rtl"] .unfold-sidebar-item-arrow {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+/* Fix filters */
+[dir="rtl"] .unfold-filters-dropdown {
+    left: auto;
+    right: 0;
+}
+
+/* Fix form elements */
+[dir="rtl"] .unfold-form-field div:not(.unfold-help-text) {
+    text-align: right;
+}
+
+[dir="rtl"] select {
+    background-position: left 0.5rem center;
+    padding-right: 0.75rem;
+    padding-left: 2rem;
+}
+
+/* Fix dropdown menus */
+[dir="rtl"] .unfold-dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+/* Fix checkboxes and radio buttons */
+[dir="rtl"] input[type="checkbox"],
+[dir="rtl"] input[type="radio"] {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+/* Fix date input fields */
+[dir="rtl"] .unfold-datetime span {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+/* Fix breadcrumbs */
+[dir="rtl"] .unfold-breadcrumbs-item:not(:first-child)::before {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+/* Fix table columns */
+[dir="rtl"] .unfold-table th,
+[dir="rtl"] .unfold-table td {
+    text-align: right;
+}
+
+/* Fix action buttons */
+[dir="rtl"] .unfold-object-tools {
+    float: left;
+}
+
+/* Fix pagination */
+[dir="rtl"] .unfold-pagination-item:not(:first-child) {
+    margin-right: 0.25rem;
+}
+
+/* Fix tabs */
+[dir="rtl"] .unfold-tabs-item:not(:first-child) {
+    margin-right: 0.5rem;
+}
+
+/* Fix inlines */
+[dir="rtl"] .unfold-inline-item-tools {
+    left: 1rem;
+    right: auto;
+}
+
+/* Fix calendar widget */
+[dir="rtl"] .calendar-shortcuts {
+    text-align: right;
+}
+
+/* Fix search */
+[dir="rtl"] .unfold-search-icon {
+    left: auto;
+    right: 0.75rem;
+}
+
+[dir="rtl"] .unfold-search {
+    padding-left: 0.75rem;
+    padding-right: 2.5rem;
+}
+
+/* Fix admin actions */
+[dir="rtl"] .unfold-actions {
+    text-align: right;
+}
+
+/* Fix modal dialogs */
+[dir="rtl"] .unfold-modal-close {
+    right: auto;
+    left: 1rem;
+}
+
+/* Fix responsive tables */
+@media (max-width: 767px) {
+    [dir="rtl"] .unfold-table-container td:before {
+        float: right;
+        padding-left: 1rem;
+        padding-right: 0;
+    }
+}
+
+/* Fix font family for Persian */
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('/static/fonts/Vazirmatn-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('/static/fonts/Vazirmatn-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+[dir="rtl"] body {
+    font-family: 'Vazirmatn', sans-serif;
+}

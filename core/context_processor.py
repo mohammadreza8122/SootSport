@@ -1,11 +1,11 @@
-from django.utils import translation
-
-
 def rtl_processor(request):
+    """
+    Context processor برای اضافه کردن متغیر is_rtl به تمام قالب‌ها
 
-    language = translation.get_language()
-    is_rtl = language in ['fa', 'ar', 'he', 'ur']
+    از آنجا که فقط پشتیبانی از فارسی نیاز است، همیشه True برمی‌گرداند
+    """
 
+    # همیشه برای زبان فارسی راست‌چین خواهد بود
     return {
-        'is_rtl': is_rtl,
+        'is_rtl': True,
     }

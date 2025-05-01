@@ -140,15 +140,11 @@ USE_TZ = True
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'static'),  # این برای فایل‌های استاتیک پروژه‌ت هست
-# ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # این مسیریه که collectstatic توش میریزه
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_files'),  # پوشه‌ای برای فایل‌های استاتیک پروژه
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

@@ -3,44 +3,46 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from unfold_tools.sidebar import SIDEBAR
 
+
 def set_direction(request):
-    """Set RTL direction based on language"""
-    return 'ltr'
+    """همیشه جهت RTL برای فارسی"""
+    return 'rtl'
 
 
 UNFOLD = {
-    # Site title and header
-    "SITE_TITLE": "SootSport Admin",
-    "SITE_HEADER": "SootSport Admin",
+    # عنوان سایت و هدر
+    "SITE_TITLE": "مدیریت سوت اسپورت",
+    "SITE_HEADER": "پنل مدیریت سوت اسپورت",
     "SITE_URL": "/",
 
-    # Icon and logo
+    # آیکون و لوگو
     "SITE_ICON": lambda request: static("cropped-icon-2-192x192.webp"),
     "SITE_LOGO": lambda request: static("cropped-icon-2-192x192.webp"),
 
-    # Display options
-    "SHOW_HISTORY": True,  # Show "History" button
-    "SHOW_VIEW_ON_SITE": True,  # Show "View on site" button
+    # گزینه‌های نمایش
+    "SHOW_HISTORY": True,  # نمایش دکمه "تاریخچه"
+    "SHOW_VIEW_ON_SITE": True,  # نمایش دکمه "مشاهده در سایت"
 
     "ENVIRONMENT": "unfold_tools.utils.environment_callback",
-    # "DASHBOARD_CALLBACK": "unfold_tools.utils.dashboard_callback",
 
-    # RTL direction setting
-    "DIRECTION": set_direction,
+    # تنظیم جهت RTL
+    "DIRECTION": set_direction,  # همیشه RTL برای فارسی
 
-    # Login settings
+    # تنظیمات ورود
     "LOGIN": {
         "image": lambda request: static("login-bg.jpg"),
-        "redirect_after": lambda request: reverse_lazy("admin:index"),  # Redirect to dashboard after login
+        "redirect_after": lambda request: reverse_lazy("admin:index"),  # هدایت به داشبورد پس از ورود
     },
 
-    # Custom styles and scripts (optional)
+    # استایل‌ها و اسکریپت‌های سفارشی
     "STYLES": [
-        lambda request: static("custom.css"),  # Add your custom CSS file
+        lambda request: static("custom.css"),  # فایل CSS سفارشی
     ],
     "SCRIPTS": [
-        lambda request: static("custom.js"),  # Add your custom JavaScript file
+        lambda request: static("custom.js"),  # فایل JavaScript سفارشی
     ],
+
+    # تنظیمات ظاهری
     "BORDER_RADIUS": "20px",
     "COLORS": {
         "base": {
@@ -78,10 +80,21 @@ UNFOLD = {
             "important-dark": "var(--color-base-100)",  # text-base-100
         },
     },
-    # Sidebar navigation
+
+    # تنظیمات فونت
+    "FONTSHEET": "https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css",
+    "FONTS": {
+        "default": "Vazirmatn, sans-serif",
+        "monospace": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+    },
+
+    # نوار کناری
     "SIDEBAR": {
-        "show_search": True,  # Enable search in sidebar
+        "show_search": True,  # فعال کردن جستجو در نوار کناری
         "show_all_applications": False,
         "navigation": SIDEBAR
     },
+
+    # فعال کردن RTL
+    "RTL_SUPPORT": True,
 }

@@ -1,0 +1,101 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style>
+        /* استایل‌های خاص برای صفحه لیست */
+        body, html {
+            direction: rtl !important;
+            text-align: right !important;
+        }
+
+        /* اصلاح نوار ابزار */
+        .object-tools {
+            float: left !important;
+            text-align: left !important;
+            margin-left: 0 !important;
+            margin-right: 15px !important;
+        }
+
+        /* اصلاح جدول نتایج */
+        #result_list {
+            direction: rtl !important;
+        }
+
+        #result_list th, #result_list td {
+            text-align: right !important;
+        }
+
+        /* اصلاح فیلترها */
+        #changelist-filter {
+            direction: rtl !important;
+            text-align: right !important;
+            float: left !important;
+            margin-left: 0 !important;
+            margin-right: 15px !important;
+        }
+
+        /* اصلاح نمایش صفحه‌بندی */
+        .paginator {
+            text-align: center !important;
+            direction: rtl !important;
+        }
+
+        /* اصلاح دکمه‌های عملیات */
+        .actions {
+            text-align: right !important;
+            direction: rtl !important;
+        }
+
+        /* اصلاح منوی عملیات */
+        #changelist-form .actions select {
+            text-align: right !important;
+        }
+
+        /* اصلاح نمایش خلاصه نتایج */
+        .summary {
+            text-align: right !important;
+            direction: rtl !important;
+        }
+    </style>
+    <script>
+        // اسکریپت سفارشی برای صفحه لیست
+        document.addEventListener('DOMContentLoaded', function() {
+            // اصلاح ترتیب المان‌های جدول
+            const resultList = document.getElementById('result_list');
+            if (resultList) {
+                // اطمینان از اعمال استایل‌های RTL به جدول
+                resultList.style.direction = 'rtl';
+                resultList.style.textAlign = 'right';
+
+                // اصلاح سرستون‌ها
+                const headers = resultList.querySelectorAll('th');
+                for (let header of headers) {
+                    header.style.textAlign = 'right';
+                }
+
+                // اصلاح سلول‌های جدول
+                const cells = resultList.querySelectorAll('td');
+                for (let cell of cells) {
+                    cell.style.textAlign = 'right';
+                }
+            }
+
+            // اصلاح فیلترها
+            const filters = document.getElementById('changelist-filter');
+            if (filters) {
+                filters.style.direction = 'rtl';
+                filters.style.textAlign = 'right';
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+{% endblock %}
