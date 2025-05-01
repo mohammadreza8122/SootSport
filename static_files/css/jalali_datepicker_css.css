@@ -1,0 +1,96 @@
+/* استایل‌های سفارشی برای انتخابگر تاریخ شمسی در پنل ادمین جنگو */
+
+.jalali-datepicker,
+.jalali-datetimepicker {
+    direction: rtl;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: IRANSans, Tahoma, Arial, sans-serif;
+}
+
+/* استایل‌های مربوط به خود کتابخانه pwt.datepicker */
+.datepicker-plot-area {
+    font-family: IRANSans, Tahoma, Arial, sans-serif !important;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10000 !important; /* مطمئن شویم که بالاتر از سایر عناصر نمایش داده می‌شود */
+}
+
+.datepicker-plot-area .datepicker-header {
+    background-color: #5b80b2 !important; /* رنگ هدر متناسب با تم جنگو */
+    border-radius: 5px 5px 0 0;
+}
+
+.datepicker-plot-area .datepicker-header .btn-next,
+.datepicker-plot-area .datepicker-header .btn-prev,
+.datepicker-plot-area .datepicker-header .btn-switch {
+    color: white !important;
+    font-weight: bold;
+}
+
+.datepicker-plot-area .toolbox .btn-today {
+    background-color: #417690 !important; /* رنگ دکمه امروز متناسب با تم جنگو */
+    color: white !important;
+    border-radius: 3px;
+}
+
+.datepicker-plot-area .day-items .selected {
+    background-color: #417690 !important; /* رنگ روز انتخاب شده متناسب با تم جنگو */
+    color: white !important;
+    font-weight: bold;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.datepicker-plot-area .day-items .today {
+    border: 1px solid #5b80b2 !important; /* حاشیه روز جاری متناسب با تم جنگو */
+}
+
+/* سازگاری با تم دارک */
+[data-theme="dark"] .datepicker-plot-area {
+    background-color: #333 !important;
+    color: #eee !important;
+}
+
+[data-theme="dark"] .datepicker-plot-area .datepicker-header {
+    background-color: #222 !important;
+}
+
+[data-theme="dark"] .datepicker-plot-area .datepicker-header .btn-next,
+[data-theme="dark"] .datepicker-plot-area .datepicker-header .btn-prev,
+[data-theme="dark"] .datepicker-plot-area .datepicker-header .btn-switch {
+    color: #eee !important;
+}
+
+[data-theme="dark"] .datepicker-plot-area .toolbox .btn-today {
+    background-color: #555 !important;
+    color: #eee !important;
+}
+
+[data-theme="dark"] .datepicker-plot-area .day-items .selected {
+    background-color: #555 !important;
+}
+
+[data-theme="dark"] .datepicker-plot-area .day-items .today {
+    border: 1px solid #777 !important;
+}
+
+/* سازگاری RTL برای تقویم */
+.datepicker-plot-area[data-jdate="true"] {
+    direction: rtl !important;
+}
+
+/* سبک‌سازی برای time picker */
+.datepicker-plot-area .datepicker-time-view input {
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* اصلاح مشکل z-index در پاپ‌آپ‌های جنگو */
+.related-widget-wrapper-popup {
+    z-index: 1001 !important;
+}

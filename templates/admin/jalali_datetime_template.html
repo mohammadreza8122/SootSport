@@ -1,0 +1,8 @@
+{% include "django/forms/widgets/input.html" %}
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof(initJalaliDateTimePicker) !== 'undefined') {
+            initJalaliDateTimePicker('{{ widget.attrs.id }}');
+        }
+    });
+</script>

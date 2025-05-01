@@ -1,0 +1,22 @@
+{% extends "unfold/layouts/base.html" %}
+{% load i18n static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/jalali-datepicker.css' %}">
+<script type="text/javascript" src="{% static 'js/jalali-datepicker.js' %}"></script>
+<style>
+    body, html {
+        direction: rtl !important;
+        text-align: right !important;
+    }
+</style>
+{% endblock %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
