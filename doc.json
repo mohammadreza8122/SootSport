@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "YOUR_COLLECTION_ID", // ID منحصر به فرد برای کالکشن شما
+		"name": "Provider API",
+		"description": "API Endpoints for Sport Facilities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Sport Facilities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/provider/facilities/?search=&city=&province=&category=&tags=&gender_type=&page=&page_size=",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"provider",
+						"facilities",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "",
+							"description": "(اختیاری) جستجو در نام، توضیحات و آدرس سالن"
+						},
+						{
+							"key": "city",
+							"value": "",
+							"description": "(اختیاری) فیلتر بر اساس ID شهر"
+						},
+						{
+							"key": "province",
+							"value": "",
+							"description": "(اختیاری) فیلتر بر اساس ID استان"
+						},
+						{
+							"key": "category",
+							"value": "",
+							"description": "(اختیاری) فیلتر بر اساس ID دسته‌بندی"
+						},
+						{
+							"key": "tags",
+							"value": "",
+							"description": "(اختیاری) فیلتر بر اساس ID تگ‌ها (می‌تواند چند مقدار با همین کلید باشد، مثلا tags=1&tags=3)"
+						},
+						{
+							"key": "gender_type",
+							"value": "",
+							"description": "(اختیاری) فیلتر بر اساس جنسیت (M: آقایان, F: بانوان, B: هر دو)"
+						},
+						{
+							"key": "page",
+							"value": "",
+							"description": "(اختیاری) شماره صفحه برای Pagination"
+						},
+						{
+							"key": "page_size",
+							"value": "",
+							"description": "(اختیاری) تعداد آیتم‌ها در هر صفحه"
+						}
+					]
+				},
+				"description": "دریافت لیست سالن‌های ورزشی فعال با قابلیت فیلتر و جستجو.\n\n**پارامترهای Query:**\n*   `search`: متن برای جستجو در نام، توضیحات و آدرس.\n*   `city`: شناسه (ID) شهر.\n*   `province`: شناسه (ID) استان.\n*   `category`: شناسه (ID) دسته‌بندی.\n*   `tags`: شناسه (ID) تگ (می‌تواند تکرار شود: `tags=1&tags=5`).\n*   `gender_type`: نوع جنسیت (`M`, `F`, `B`).\n*   `page`: شماره صفحه.\n*   `page_size`: تعداد نتایج در هر صفحه."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sport Facility Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/provider/facilities/:facility_id/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"provider",
+						"facilities",
+						":facility_id",
+						""
+					],
+					"variable": [
+						{
+							"key": "facility_id",
+							"value": "1", // مقدار پیش‌فرض برای ID سالن
+							"description": "شناسه (ID) سالن ورزشی مورد نظر"
+						}
+					]
+				},
+				"description": "دریافت جزئیات کامل یک سالن ورزشی خاص با استفاده از ID آن."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000", // آدرس پایه API خود را اینجا قرار دهید
+			"type": "string"
+		}
+	]
+}
